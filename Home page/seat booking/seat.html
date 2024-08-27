@@ -1,27 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>College Admission Seat Booking</title>
-  <link rel="stylesheet" href="seat.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Seat Booking</title>
+    <link rel="stylesheet" href="seat.css">
 </head>
 <body>
-  <h1>College Admission Seat Booking</h1>
-
-  <div class="container">
-    <div class="info">Available Seats for Admission</div>
-
-    <div class="seats">
-      <!-- Seats will be generated dynamically here -->
-    </div>
-
-    <div class="details">
-      <p>Selected Seats: <span id="count">0</span></p>
-      <button id="book">Confirm Admission</button>
-    </div>
+    <div class="container">
+        <h1>Seat Reservation</h1>
+        <div id="seats">
+            <!-- Static set of seats -->
+            <div class="seat" id="seat-1">1</div>
+            <div class="seat" id="seat-2">2</div>
+            <div class="seat" id="seat-3">3</div>
+            <div class="seat" id="seat-4">4</div>
+            <div class="seat" id="seat-5">5</div>
+            <div class="seat" id="seat-6">6</div>
+            <div class="seat" id="seat-7">7</div>
+            <div class="seat" id="seat-8">8</div>
+            <div class="seat" id="seat-9">9</div>
+            <div class="seat" id="seat-10">10</div>
+            <div class="seat" id="seat-11">11</div>
+            <div class="seat" id="seat-12">12</div>
+            <div class="seat" id="seat-13">13</div>
+            <div class="seat" id="seat-14">14</div>
+            <div class="seat" id="seat-15">15</div>
+            <div class="seat" id="seat-16">16</div>
+            <div class="seat" id="seat-17">17</div>
+            <div class="seat" id="seat-18">18</div>
+            <div class="seat" id="seat-19">19</div>
+            <div class="seat" id="seat-20">20</div>
+            <div class="seat" id="seat-21">21</div>
+            <div class="seat" id="seat-22">22</div>
+            <div class="seat" id="seat-23">23</div>
+            <div class="seat" id="seat-24">24</div>
+            <div class="seat" id="seat-25">25</div>
+            <div class="seat" id="seat-26">26</div>
+            <div class="seat" id="seat-27">27</div>
+            <div class="seat" id="seat-28">28</div>
+            <div class="seat" id="seat-29">29</div>
+            <div class="seat" id="seat-30">30</div>
+        </div>
+        <form id="booking-form" class="hidden">
+            <h2>Apply Details</h2>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required pattern="[0-9]{10}">
+            <button type="submit">Submit</button>
+        </form>
+        
+        
+        
+        
+  </div>
   </div>
 
-  <script src="seat.js"></script>
+    
+
+    <script src="seat.js"></script>
 </body>
 </html>
