@@ -1,64 +1,50 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const seats = document.querySelectorAll('.seat:not(.booked)');
-    const bookingForm = document.getElementById('booking-form');
-    const nameInput = document.getElementById('name');
-    const phoneInput = document.getElementById('phone');
+    const seatsContainer = document.getElementById('seatsContainer');
+    const phoneModal = document.getElementById('phoneModal');
+    const closeModal = document.getElementById('closeModal');
+    const bookSeatButton = document.getElementById('bookSeat');
+    const phoneNumberInput = document.getElementById('phoneNumber');
     let selectedSeat = null;
 
-    // Seat click event
-    seats.forEach(seat => {
-        seat.addEventListener('click', () => {
-            // Deselect if already selected
-            if (seat === selectedSeat) {
-                seat.classList.remove('selected');
-                selectedSeat = null;
-                bookingForm.classList.add('hidden');
-                resetForm();
-            } else {
-                // Deselect any other selected seat
-                if (selectedSeat) {
-                    selectedSeat.classList.remove('selected');
-                }
-                seat.classList.add('selected');
-                selectedSeat = seat;
-                bookingForm.classList.remove('hidden');
-                bookingForm.classList.add('slide-in');
-            }
-        });
+    // Generate 30 seats
+    for (let i = 1; i <= 30; i++) {
+        const seat = document.createElement('div');
+        seat.classList.add('seat');
+        seat.innerText = i;
+        seat.addEventListener('click', () => selectSeat(seat));
+        seatsContainer.appendChild(seat);
+    }
+
+    // Open modal to enter phone number
+    function selectSeat(seat) {
+        if (!seat.classList.contains('selected')) {
+            selectedSeat = seat;
+            phoneModal.style.display = 'block';
+        }
+    }
+
+    // Close modal
+    closeModal.addEventListener('click', () => {
+        phoneModal.style.display = 'none';
+        phoneNumberInput.value = '';
     });
 
-    // Form submission event
-    bookingForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const name = nameInput.value.trim();
-        const phone = phoneInput.value.trim();
-
-        // Validate phone number uniqueness
-        if (isPhoneNumberBooked(phone)) {
-            alert('This phone number has already been used to book a seat.');
-            return;
-        }
-
-        // Mark the seat as booked
-        if (selectedSeat) {
-            selectedSeat.classList.remove('selected');
-            selectedSeat.classList.add('booked', 'bounce');
-            selectedSeat = null;
-            bookingForm.classList.add('hidden');
-            resetForm();
+    // Book seat with phone number
+    bookSeatButton.addEventListener('click', () => {
+        const phoneNumber = phoneNumberInput.value.trim();
+        if (phoneNumber && selectedSeat) {
+            selectedSeat.classList.add('selected');
+            selectedSeat.innerText = phoneNumber;
+            phoneModal.style.display = 'none';
+            phoneNumberInput.value = '';
         }
     });
 
-    // Reset form fields
-    function resetForm() {
-        nameInput.value = '';
-        phoneInput.value = '';
-        bookingForm.classList.remove('slide-in');
-    }
-
-    // Check if phone number is already booked
-    function isPhoneNumberBooked(phone) {
-        const bookedSeats = document.querySelectorAll('.seat.booked');
-        return Array.from(bookedSeats).some(seat => seat.getAttribute('data-phone') === phone);
-    }
+    // Close modal when clicking outside the modal
+    window.onclick = function(event) {
+        if (event.target === phoneModal) {
+            phoneModal.style.display = 'none';
+            phoneNumberInput.value = '';
+        }
+    };
 });
