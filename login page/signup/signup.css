@@ -88,14 +88,14 @@ body{
     transition: 1s;
   }
   
-  .signup-link {
+  .signin-link {
     color: #6B7280;
     font-size: 0.875rem;
     line-height: 1.25rem;
     text-align: center;
   }
   
-  .signup-link a {
+  .signin-link a {
     text-decoration: none;
   }
     
