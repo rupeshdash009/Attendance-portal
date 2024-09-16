@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance Portal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to left, #f5f6f7, #e8f1ff, #ffefef);
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .attendance-container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    .attendance-container select, .attendance-container input[type="text"] {
+      width: calc(33% - 10px);
+      padding: 10px;
+      margin: 10px 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .attendance-container table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      
+    }
+
+    .attendance-container th, .attendance-container td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+
+    .attendance-container th {
+      background-color: #f8f8f8;
+    }
+
+    .attendance-container td button {
+      padding: 8px 16px;
+      border: 1px solid #ccc;
+      background-color: #f0f0f0;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 2px;
+    }
+    .attendance-container td button.active {
+      background-color: #28a745;
+      color: white;
+      border-color: #28a745;
+    }
+
+     /* Specific colors for each attendance status */
+     .attendance-container td button.present {
+      background-color: #28a745; /* Green for present */
+      color: white;
+      border-color: #28a745;
+    }
+
+    .attendance-container td button.absent {
+      background-color: #dc3545; /* Red for absent */
+      color: white;
+      border-color: #dc3545;
+    }
+
+    .attendance-container td button.late {
+      background-color: #6c757d; /* Grey for late */
+      color: white;
+      border-color: #6c757d;
+    }
+
+
+    .attendance-container button[type="submit"] {
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .attendance-container button[type="submit"]:hover {
+      background-color: #218838;
+    }
+
+    /* Mobile Styles */
+  @media (max-width: 600px) {
+    table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    th, td {
+      font-size: 14px;
+    }
+
+    button.attendance-btn {
+      font-size: 12px;
+      padding: 5px;
+    }
+
+    select {
+      width: 100%;
+    }
+
+    form {
+      width: 100%;
+    }
+  }
+
+  /* Tablet Styles */
+  @media (min-width: 600px) and (max-width: 1024px) {
+    th, td {
+      font-size: 16px;
+    }
+
+    select {
+      width: 80%;
+    }
+
+    form {
+      width: 80%;
+    }
+  }
+
+  /* Laptop/Desktop Styles */
+  @media (min-width: 1024px) {
+    th, td {
+      font-size: 18px;
+    }
+
+    select {
+      width: 100%;
+    }
+
+    form {
+      
+      width: 100%;
+    }
+  }
+  
+  </style>
+</head>
+<body>
+
+  <h1>Attendance Portal</h1>
+
+  <div class="attendance-container">
+    <!-- Course Information Form -->
+    <form id="attendanceForm">
+      <select id="courseName" required>
+        <option value="">Select Course</option>
+        <option value="BCA">BCA</option>
+        <option value="BBA">BBA</option>
+      </select>
+      <select id="year" required>
+        <option value="">Select Year</option>
+        <option value="1">1st Year</option>
+        <option value="2">2nd Year</option>
+        <option value="3">3rd Year</option>
+        <option value="4">4th Year</option>
+      </select>
+
+      <select id="semester" required>
+        <option value="">Select Semester</option>
+        <option value="1">Semester 1</option>
+        <option value="2">Semester 2</option>
+        <option value="3">Semester 3</option>
+        <option value="4">Semester 4</option>
+        <option value="5">Semester 5</option>
+        <option value="6">Semester 6</option>
+        <option value="7">Semester 7</option>
+        <option value="8">Semester 8</option>
+      </select>
+
+      <!-- Attendance Table -->
+      <table>
+        <thead>
+          <tr>
+            <th>Student Name</th>
+            <th>Present</th>
+            <th>Absent</th>
+            <th>Late</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Roll 1</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="1">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="1">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="1">Late</button></td>
+          </tr>
+          <tr>
+            <td>Roll 2</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="2">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="2">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="2">Late</button></td>
+          </tr>
+          <tr>
+            <td>Roll 3</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="3">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="3">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="3">Late</button></td>
+          </tr>
+          <tr>
+            <td>Roll 4</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="4">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="4">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="4">Late</button></td>
+          </tr>
+          <tr>
+            <td>Roll 5</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
+          </tr>
+          <tr>
+            <td>Roll 6</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
+          </tr>
+          <tr>
+            <td>Roll 7</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
+          </tr>
+          <tr>
+            <td>Roll 8</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
+          </tr>
+          <tr>
+            <td>Roll 9</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
+          </tr>
+          <tr>
+            <td>Roll 10</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
+          </tr>
+          <tr>
+            <td>Roll 11</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
+          </tr>
+          <tr>
+            <td>Roll 12</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
+          </tr>
+          <tr>
+            <td>Roll 13</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
+          </tr>
+          <tr>
+            <td>Roll 14</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
+          </tr>
+          <tr>
+            <td>Roll 15</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
+          </tr>
+          <tr>
+            <td>Roll 16</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
+          </tr>
+          <tr>
+            <td>Roll 17</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
+          </tr>
+          <tr>
+            <td>Roll 18</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
+          </tr>
+          <tr>
+            <td>Roll 19</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
+          </tr>
+          <tr>
+            <td>Roll 20</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
+          </tr>
+          <tr>
+            <td>Roll 21</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
+          </tr>
+          <tr>
+            <td>Roll 22</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
+          </tr>
+          <tr>
+            <td>Roll 23</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
+          </tr>
+          <tr>
+            <td>Roll 24</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
+          </tr>
+          <tr>
+            <td>Roll 25</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
+          </tr>
+          <tr>
+            <td>Roll 26</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
+          </tr>
+          <tr>
+            <td>Roll 27</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
+          </tr>
+          <tr>
+            <td>Roll 28</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
+          </tr>
+          <tr>
+            <td>Roll 29</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
+          </tr>
+          <tr>
+            <td>Roll 30</td>
+            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
+            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
+          </tr>
+         
+        </tbody>
+      </table>
+
+      <!-- Submit Button -->
+      <button type="submit">Submit Attendance</button>
+    </form>
+  </div>
+
+  <script>
+// Toggle button selection logic
+const buttons = document.querySelectorAll('.attendance-btn');
+const attendance = {};
+
+buttons.forEach(button => {
+  button.addEventListener('click', function() {
+    const student = this.getAttribute('data-student');
+    const status = this.getAttribute('data-status');
+    
+    // Check if the button is already active (clicked)
+    if (this.classList.contains('active')) {
+      // Unclick the button (remove active state)
+      this.classList.remove('active', 'present', 'absent', 'late');
+      // Remove the attendance entry for this student
+      delete attendance[student];
+    } else {
+      // Deactivate other buttons for the same student
+      buttons.forEach(btn => {
+        if (btn.getAttribute('data-student') === student) {
+          btn.classList.remove('active', 'present', 'absent', 'late');
+        }
+      });
+
+      // Mark the clicked button as active
+      this.classList.add('active');
+      
+      // Apply the appropriate color based on status
+      if (status === 'Present') {
+        this.classList.add('present');
+      } else if (status === 'Absent') {
+        this.classList.add('absent');
+      } else if (status === 'Late') {
+        this.classList.add('late');
+      }
+
+      // Record attendance for the student
+      attendance[student] = status;
+    }
+  });
+});
+
+</script>
+
+</body>
+</html>

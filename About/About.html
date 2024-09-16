@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>About | Attendance Portal</title>
+    <style>
+        :root {
+            --primary-color: #307232;
+            --secondary-color: #2ab463;
+            --text-color: #333;
+            --background-color: #f5f5f5;
+            --card-background: #fff;
+            --font-main: 'Poppins', sans-serif;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: var(--font-main);
+             background: linear-gradient(to left, #f5f6f7, #e8f1ff, #ffefef);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        header {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            padding: 20px 20px;
+            text-align: center;
+            color: white;
+            
+        }
+        header h1 {
+            font-size: 48px;
+            font-weight: 200;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        section {
+            margin: 40px 0;
+            text-align: center;
+        }
+        section h2 {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        section p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 20px;
+        }
+        .feature-box {
+            background-color: var(--card-background);
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 350px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .feature-box:hover {
+            transform: translateY(-10px);
+        }
+        .feature-box h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        .feature-box p {
+            font-size: 16px;
+            color: #555;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        .cta-button:hover {
+            background-color: var(--secondary-color);
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 36px;
+            }
+            section h2 {
+                font-size: 28px;
+            }
+            .features {
+                flex-direction: column;
+                gap: 40px;
+            }
+            .feature-box {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>About Attendance Portal</h1>
+</header>
+
+<div class="container">
+    <section>
+        <h2>What is the Attendance Portal?</h2>
+        <p>The Attendance Portal is an advanced platform designed to efficiently manage student attendance. it is optimized for educational institutions of all sizes. Track attendance effortlessly, generate reports, and make data-driven decisions.</p>
+    </section>
+
+    <section>
+        <h2>Key Features</h2>
+        <div class="features">
+            <div class="feature-box">
+                <h3>Real-Time Tracking</h3>
+                <p>Track attendance instantly and ensure up-to-date data is available for all students.</p>
+            </div>
+            <div class="feature-box">
+                <h3>Comprehensive Reports</h3>
+                <p>Generate analytical reports to assess trends and student participation.</p>
+            </div>
+            <div class="feature-box">
+                <h3>Mobile-Friendly Design</h3>
+                <p>Access the portal from any device, providing a seamless experience across all platforms.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Why Choose Us?</h2>
+        <p>Our Attendance Portal offers an intuitive and user-friendly interface, built to meet the needs of modern educators. With real-time attendance updates, automated reporting, and mobile-first design, managing student attendance has never been easier or more efficient.</p>
+        <a href="#get-started" class="cta-button">Get Started</a>
+    </section>
+</div>
+
+<footer>
+    <p>&copy; 2024 Vikash School of Bussiness Management Portal. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

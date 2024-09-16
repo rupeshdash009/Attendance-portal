@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>College Seat Booking System</title>
+  <link rel="shortcut icon" href="/assests/favicon.png" type="image/x-icon">
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      background: linear-gradient(to left, #f5f6f7, #e8f1ff, #ffefef);
       text-align: center;
     }
 
@@ -18,14 +20,16 @@
 
     .seats-container {
       display: grid;
-      grid-template-columns: repeat(6, 1fr); /* Display 6 seats per row */
+      grid-template-columns: repeat(6, 1fr);
+      /* Display 6 seats per row */
       gap: 10px;
-      max-width: 600px; /* Increased width to accommodate 6 seats */
+      max-width: 600px;
+      /* Increased width to accommodate 6 seats */
       margin: 30px auto;
     }
 
     .seat {
-      background-color: #ddd;
+      background-color: #fff;
       padding: 20px;
       border-radius: 5px;
       cursor: pointer;
@@ -50,8 +54,10 @@
       transform: translate(-50%, -50%);
       background-color: #fff;
       padding: 20px;
+
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
       z-index: 999;
+      
     }
 
     .popup input[type="text"],
@@ -88,44 +94,98 @@
       background: rgba(0, 0, 0, 0.5);
       z-index: 998;
     }
+
+   /* Media queries for responsiveness */
+   @media (max-width: 768px) {
+      h1 {
+        font-size: 20px;
+      }
+
+      .seats-container {
+        grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+        gap: 8px;
+      }
+
+      .seat {
+        padding: 12px;
+        font-size:14px;
+        max-width: 60px;
+      }
+
+      .popup {
+        width: 90%;
+        padding: 15px;
+      }
+
+      .popup button {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 18px;
+      }
+
+      .seats-container {
+        grid-template-columns: repeat(auto-fit, minmax(35px, 1fr));
+        gap: 6px;
+      }
+
+      .seat {
+        padding: 10px;
+        font-size: 12px;
+        max-width: 50px;
+      }
+
+      .popup {
+        width: 95%;
+      }
+
+      .popup button {
+        font-size: 13px;
+      }
+    }
+
   </style>
 </head>
+
 <body>
 
   <h1>College Seat Booking System</h1>
 
   <div class="seats-container">
     <!-- Generate 30 seats -->
-    <div class="seat" data-seat="1">Seat 1</div>
-    <div class="seat" data-seat="2">Seat 2</div>
-    <div class="seat" data-seat="3">Seat 3</div>
-    <div class="seat" data-seat="4">Seat 4</div>
-    <div class="seat" data-seat="5">Seat 5</div>
-    <div class="seat" data-seat="6">Seat 6</div>
-    <div class="seat" data-seat="7">Seat 7</div>
-    <div class="seat" data-seat="8">Seat 8</div>
-    <div class="seat" data-seat="9">Seat 9</div>
-    <div class="seat" data-seat="10">Seat 10</div>
-    <div class="seat" data-seat="11">Seat 11</div>
-    <div class="seat" data-seat="12">Seat 12</div>
-    <div class="seat" data-seat="13">Seat 13</div>
-    <div class="seat" data-seat="14">Seat 14</div>
-    <div class="seat" data-seat="15">Seat 15</div>
-    <div class="seat" data-seat="16">Seat 16</div>
-    <div class="seat" data-seat="17">Seat 17</div>
-    <div class="seat" data-seat="18">Seat 18</div>
-    <div class="seat" data-seat="19">Seat 19</div>
-    <div class="seat" data-seat="20">Seat 20</div>
-    <div class="seat" data-seat="21">Seat 21</div>
-    <div class="seat" data-seat="22">Seat 22</div>
-    <div class="seat" data-seat="23">Seat 23</div>
-    <div class="seat" data-seat="24">Seat 24</div>
-    <div class="seat" data-seat="25">Seat 25</div>
-    <div class="seat" data-seat="26">Seat 26</div>
-    <div class="seat" data-seat="27">Seat 27</div>
-    <div class="seat" data-seat="28">Seat 28</div>
-    <div class="seat" data-seat="29">Seat 29</div>
-    <div class="seat" data-seat="30">Seat 30</div>
+    <div class="seat" data-seat="1"> 1</div>
+    <div class="seat" data-seat="2"> 2</div>
+    <div class="seat" data-seat="3"> 3</div>
+    <div class="seat" data-seat="4"> 4</div>
+    <div class="seat" data-seat="5"> 5</div>
+    <div class="seat" data-seat="6"> 6</div>
+    <div class="seat" data-seat="7"> 7</div>
+    <div class="seat" data-seat="8"> 8</div>
+    <div class="seat" data-seat="9"> 9</div>
+    <div class="seat" data-seat="10"> 10</div>
+    <div class="seat" data-seat="11"> 11</div>
+    <div class="seat" data-seat="12"> 12</div>
+    <div class="seat" data-seat="13"> 13</div>
+    <div class="seat" data-seat="14"> 14</div>
+    <div class="seat" data-seat="15"> 15</div>
+    <div class="seat" data-seat="16"> 16</div>
+    <div class="seat" data-seat="17"> 17</div>
+    <div class="seat" data-seat="18"> 18</div>
+    <div class="seat" data-seat="19"> 19</div>
+    <div class="seat" data-seat="20"> 20</div>
+    <div class="seat" data-seat="21"> 21</div>
+    <div class="seat" data-seat="22"> 22</div>
+    <div class="seat" data-seat="23"> 23</div>
+    <div class="seat" data-seat="24"> 24</div>
+    <div class="seat" data-seat="25"> 25</div>
+    <div class="seat" data-seat="26"> 26</div>
+    <div class="seat" data-seat="27"> 27</div>
+    <div class="seat" data-seat="28"> 28</div>
+    <div class="seat" data-seat="29"> 29</div>
+    <div class="seat" data-seat="30"> 30</div>
   </div>
 
   <!-- Popup Form -->
@@ -136,89 +196,110 @@
       <input type="text" id="studentName" placeholder="Enter Name" required>
       <input type="tel" id="mobileNumber" placeholder="Enter Mobile Number" required>
       <button type="submit">Book Seat</button>
-    </form>
+
   </div>
 
   <script>
-  const seats = document.querySelectorAll('.seat');
-  const popupForm = document.getElementById('popupForm');
-  const overlay = document.getElementById('overlay');
-  let selectedSeat = null;
-
-  // Load booked seats from localStorage when page loads
-  document.addEventListener('DOMContentLoaded', loadBookedSeats);
-
-  function loadBookedSeats() {
-    // Get the booked seats data from localStorage
-    const bookedSeats = JSON.parse(localStorage.getItem('bookedSeats')) || [];
-
-    // Mark each booked seat in the UI
-    bookedSeats.forEach(seatNumber => {
-      const seatElement = document.querySelector(`.seat[data-seat="${seatNumber}"]`);
-      if (seatElement) {
-        seatElement.classList.add('booked');
-        seatElement.textContent = `Seat ${seatNumber} - Booked`;
-      }
-    });
-  }
-
-  seats.forEach(seat => {
-    seat.addEventListener('click', function () {
-      if (!seat.classList.contains('booked')) {
-        selectedSeat = seat;
-        showPopup();
-      } else {
-        alert('This seat is already booked!');
-      }
-    });
-  });
-
-  function showPopup() {
-    overlay.style.display = 'block';
-    popupForm.style.display = 'block';
-  }
-
-  function hidePopup() {
-    overlay.style.display = 'none';
-    popupForm.style.display = 'none';
-  }
-
-  // Handle the form submission
-  document.getElementById('bookingForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    const studentName = document.getElementById('studentName').value;
-    const mobileNumber = document.getElementById('mobileNumber').value;
-    const seatNumber = selectedSeat.dataset.seat;
-
-    if (studentName && mobileNumber) {
-      // Mark the seat as booked in the UI
-      selectedSeat.classList.add('booked');
-      selectedSeat.textContent = `Seat ${seatNumber} - Booked`;
-
-      // Save the booking data in localStorage
-      saveBookedSeat(seatNumber);
-
-      hidePopup();
-      alert(`Seat successfully booked by ${studentName}`);
+    const seats = document.querySelectorAll('.seat');
+    const popupForm = document.getElementById('popupForm');
+    const overlay = document.getElementById('overlay');
+    let selectedSeat = null;
+    let currentBooking = null;  // Store the current booking being edited
+  
+    // Load booked seats from localStorage when page loads
+    document.addEventListener('DOMContentLoaded', loadBookedSeats);
+  
+    function loadBookedSeats() {
+      // Get the booked seats data from localStorage
+      const bookings = JSON.parse(localStorage.getItem('bookedSeats')) || [];
+  
+      // Mark each booked seat in the UI
+      bookings.forEach(booking => {
+        const seatElement = document.querySelector(`.seat[data-seat="${booking.seatNumber}"]`);
+        if (seatElement) {
+          seatElement.classList.add('booked');
+          seatElement.textContent = `Seat ${booking.seatNumber} - Booked`;
+        }
+      });
     }
-  });
-
-  function saveBookedSeat(seatNumber) {
-    // Get the current booked seats from localStorage
-    let bookedSeats = JSON.parse(localStorage.getItem('bookedSeats')) || [];
-
-    // Add the new booked seat
-    bookedSeats.push(seatNumber);
-
-    // Save back to localStorage
-    localStorage.setItem('bookedSeats', JSON.stringify(bookedSeats));
-  }
-
+  
+    seats.forEach(seat => {
+      seat.addEventListener('click', function () {
+        if (!seat.classList.contains('booked')) {
+          selectedSeat = seat;
+          showPopup();
+        } else {
+          alert('This seat is already booked!');
+        }
+      });
+    });
+  
+    function showPopup() {
+      overlay.style.display = 'block';
+      popupForm.style.display = 'block';
+    }
+  
+    function hidePopup() {
+      overlay.style.display = 'none';
+      popupForm.style.display = 'none';
+      // Clear the form fields and reset current booking when popup is closed
+      document.getElementById('studentName').value = '';
+      document.getElementById('mobileNumber').value = '';
+      currentBooking = null;
+    }
+  
+    // Handle the form submission
+    document.getElementById('bookingForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const studentName = document.getElementById('studentName').value;
+      const mobileNumber = document.getElementById('mobileNumber').value;
+      const seatNumber = selectedSeat.dataset.seat;
+  
+      if (currentBooking) {
+        // Update the existing booking
+        updateBooking(currentBooking.seatNumber, seatNumber, studentName, mobileNumber);
+      } else {
+        // Check if the student has already booked a seat
+        if (studentAlreadyBooked(studentName, mobileNumber)) {
+          if (confirm('You have already booked a seat. Would you like to edit your booking?')) {
+            currentBooking = getBooking(studentName, mobileNumber);  // Get the current booking to edit
+            prefillForm(currentBooking);  // Prefill form with existing booking data
+            return;
+          }
+        }
+  
+        if (studentName && mobileNumber) {
+          // Mark the seat as booked in the UI
+          selectedSeat.classList.add('booked');
+          selectedSeat.textContent = `Seat ${seatNumber} - Booked`;
+  
+          // Save the booking data in localStorage
+          saveBookedSeat(seatNumber, studentName, mobileNumber);
+  
+          hidePopup();
+          alert(`Seat successfully booked by ${studentName}`);
+        }
+      }
+    });
+  
+    function saveBookedSeat(seatNumber, studentName, mobileNumber) {
+      // Get the current booked seats from localStorage
+      let bookedSeats = JSON.parse(localStorage.getItem('bookedSeats')) || [];
+  
+      // Add the new booking (seat number, student name, mobile number)
+      bookedSeats.push({
+        seatNumber,
+        studentName,
+        mobileNumber
+      });
+  
+      // Save back to localStorage
+      localStorage.setItem('bookedSeats', JSON.stringify(bookedSeats));
+    }
+  
   // Close popup if clicked outside
   overlay.addEventListener('click', hidePopup);
 </script>
-
-  
 
 </body>
 </html>
