@@ -1,437 +1,356 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Attendance Portal</title>
+  <title>Attendance Page</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to left, #f5f6f7, #e8f1ff, #ffefef);
-      text-align: center;
+      font-family: 'Roboto', sans-serif;
+      background-color: #eef2f3;
+      margin: 0;
       padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+    }
+
+    .container:hover {
+      transform: scale(1.02);
     }
 
     h1 {
+      text-align: center;
       color: #333;
+      margin-bottom: 20px;
     }
 
-    .attendance-container {
-      max-width: 800px;
-      margin: 20px auto;
-      padding: 20px;
-      background-color: #fff;
-      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-      border-radius: 10px;
+    label {
+      font-weight: 500;
+      margin-top: 10px;
+      color: #555;
     }
 
-    .attendance-container select, .attendance-container input[type="text"] {
-      width: calc(33% - 10px);
-      padding: 10px;
-      margin: 10px 5px;
+    select,
+    input[type="date"],
+    input[type="time"],
+    button {
+      padding: 12px;
+      margin: 10px 0;
+      width: 100%;
+      border-radius: 8px;
       border: 1px solid #ccc;
-      border-radius: 4px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      font-size: 16px;
+      background-color: #f9f9f9;
     }
 
-    .attendance-container table {
+    select:focus,
+    input[type="date"]:focus,
+    input[type="time"]:focus {
+      border-color: #4CAF50;
+      box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+      outline: none;
+    }
+
+    input[type="date"],
+    input[type="time"] {
+      background-color: #ffffff;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s, transform 0.2s;
+      border-radius: 8px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+      transform: scale(1.05);
+    }
+
+    table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 20px;
-      
     }
 
-    .attendance-container th, .attendance-container td {
-      padding: 10px;
+    th,
+    td {
       border: 1px solid #ccc;
-      text-align: left;
+      padding: 12px;
+      text-align: center;
+      transition: background-color 0.3s;
     }
 
-    .attendance-container th {
-      background-color: #f8f8f8;
-    }
-
-    .attendance-container td button {
-      padding: 8px 16px;
-      border: 1px solid #ccc;
+    th {
       background-color: #f0f0f0;
-      border-radius: 4px;
+      color: #333;
+      font-weight: 500;
+    }
+
+    tr:hover {
+      background-color: #f9f9f9;
+    }
+
+    /* Modern button styles for attendance status */
+    .btn-mark {
+      padding: 10px 15px;
+      margin: 5px;
       cursor: pointer;
-      margin: 2px;
-    }
-    .attendance-container td button.active {
-      background-color: #28a745;
-      color: white;
-      border-color: #28a745;
-    }
-
-     /* Specific colors for each attendance status */
-     .attendance-container td button.present {
-      background-color: #28a745; /* Green for present */
-      color: white;
-      border-color: #28a745;
-    }
-
-    .attendance-container td button.absent {
-      background-color: #dc3545; /* Red for absent */
-      color: white;
-      border-color: #dc3545;
-    }
-
-    .attendance-container td button.late {
-      background-color: #6c757d; /* Grey for late */
-      color: white;
-      border-color: #6c757d;
-    }
-
-
-    .attendance-container button[type="submit"] {
-      padding: 10px 20px;
-      background-color: #28a745;
-      color: white;
       border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-
-    .attendance-container button[type="submit"]:hover {
-      background-color: #218838;
-    }
-
-    /* Mobile Styles */
-  @media (max-width: 600px) {
-    table {
-      display: block;
-      overflow-x: auto;
-      white-space: nowrap;
-    }
-
-    th, td {
+      border-radius: 8px;
+      font-weight: 500;
       font-size: 14px;
+      color: white;
+      transition: background-color 0.3s, transform 0.2s;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
-    button.attendance-btn {
-      font-size: 12px;
-      padding: 5px;
+    .btn-mark {
+      background-color: #333;
     }
 
-    select {
-      width: 100%;
+    .btn-present:hover {
+      background-color: #008a05;
     }
 
-    form {
-      width: 100%;
-    }
-  }
-
-  /* Tablet Styles */
-  @media (min-width: 600px) and (max-width: 1024px) {
-    th, td {
-      font-size: 16px;
+    .btn-absent:hover {
+      background-color: #8d1500;
     }
 
-    select {
-      width: 80%;
+    .btn-late:hover {
+      background-color: #8a4e00;
     }
-
-    form {
-      width: 80%;
-    }
-  }
-
-  /* Laptop/Desktop Styles */
-  @media (min-width: 1024px) {
-    th, td {
-      font-size: 18px;
-    }
-
-    select {
-      width: 100%;
-    }
-
-    form {
-      
-      width: 100%;
-    }
-  }
   
+
+    /* Loading spinner styles */
+    .loading {
+      display: none;
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1000;
+    }
+
+    .spinner {
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #3498db;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
   </style>
 </head>
+
 <body>
 
-  <h1>Attendance Portal</h1>
+  <div class="container">
+    <h1>Attendance Page</h1>
 
-  <div class="attendance-container">
-    <!-- Course Information Form -->
-    <form id="attendanceForm">
-      <select id="courseName" required>
-        <option value="">Select Course</option>
-        <option value="BCA">BCA</option>
-        <option value="BBA">BBA</option>
-      </select>
-      <select id="year" required>
-        <option value="">Select Year</option>
-        <option value="1">1st Year</option>
-        <option value="2">2nd Year</option>
-        <option value="3">3rd Year</option>
-        <option value="4">4th Year</option>
-      </select>
+    <label for="date">Select Date:</label>
+    <input type="date" id="date" required>
 
-      <select id="semester" required>
-        <option value="">Select Semester</option>
-        <option value="1">Semester 1</option>
-        <option value="2">Semester 2</option>
-        <option value="3">Semester 3</option>
-        <option value="4">Semester 4</option>
-        <option value="5">Semester 5</option>
-        <option value="6">Semester 6</option>
-        <option value="7">Semester 7</option>
-        <option value="8">Semester 8</option>
-      </select>
+    <label for="course">Select Course:</label>
+    <select id="course" required>
+      <option value="BBA">BBA</option>
+      <option value="BCA">BCA</option>
+    </select>
 
-      <!-- Attendance Table -->
-      <table>
-        <thead>
-          <tr>
-            <th>Student Name</th>
-            <th>Present</th>
-            <th>Absent</th>
-            <th>Late</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Roll 1</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="1">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="1">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="1">Late</button></td>
-          </tr>
-          <tr>
-            <td>Roll 2</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="2">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="2">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="2">Late</button></td>
-          </tr>
-          <tr>
-            <td>Roll 3</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="3">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="3">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="3">Late</button></td>
-          </tr>
-          <tr>
-            <td>Roll 4</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="4">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="4">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="4">Late</button></td>
-          </tr>
-          <tr>
-            <td>Roll 5</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
-          </tr>
-          <tr>
-            <td>Roll 6</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
-          </tr>
-          <tr>
-            <td>Roll 7</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
-          </tr>
-          <tr>
-            <td>Roll 8</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
-          </tr>
-          <tr>
-            <td>Roll 9</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
-          </tr>
-          <tr>
-            <td>Roll 10</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
-          </tr>
-          <tr>
-            <td>Roll 11</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
-          </tr>
-          <tr>
-            <td>Roll 12</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
-          </tr>
-          <tr>
-            <td>Roll 13</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
-          </tr>
-          <tr>
-            <td>Roll 14</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
-          </tr>
-          <tr>
-            <td>Roll 15</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
-          </tr>
-          <tr>
-            <td>Roll 16</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
-          </tr>
-          <tr>
-            <td>Roll 17</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
-          </tr>
-          <tr>
-            <td>Roll 18</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
-          </tr>
-          <tr>
-            <td>Roll 19</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
-          </tr>
-          <tr>
-            <td>Roll 20</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
-          </tr>
-          <tr>
-            <td>Roll 21</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
-          </tr>
-          <tr>
-            <td>Roll 22</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
-          </tr>
-          <tr>
-            <td>Roll 23</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
-          </tr>
-          <tr>
-            <td>Roll 24</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
-          </tr>
-          <tr>
-            <td>Roll 25</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
-          </tr>
-          <tr>
-            <td>Roll 26</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
-          </tr>
-          <tr>
-            <td>Roll 27</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
-          </tr>
-          <tr>
-            <td>Roll 28</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
-          </tr>
-          <tr>
-            <td>Roll 29</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
-          </tr>
-          <tr>
-            <td>Roll 30</td>
-            <td><button type="button" class="attendance-btn" data-status="Present" data-student="5">Present</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Absent" data-student="5">Absent</button></td>
-            <td><button type="button" class="attendance-btn" data-status="Late" data-student="5">Late</button></td>
-          </tr>
-         
-        </tbody>
-      </table>
+    <label for="year">Select Year:</label>
+    <select id="year" required>
+      <option value="1">1st Year</option>
+      <option value="2">2nd Year</option>
+      <option value="3">3rd Year</option>
+      <option value="4">4th Year</option>
+    </select>
 
-      <!-- Submit Button -->
-      <button type="submit">Submit Attendance</button>
-    </form>
+    <label for="semester">Select Semester:</label>
+    <select id="semester" required>
+      <option value="1">1st Semester</option>
+      <option value="2">2nd Semester</option>
+      <option value="3">3rd Semester</option>
+      <option value="4">4th Semester</option>
+      <option value="5">5th Semester</option>
+      <option value="6">6th Semester</option>
+      <option value="7">7th Semester</option>
+      <option value="8">8th Semester</option>
+    </select>
+
+    <label for="period">Select Period:</label>
+    <select id="period" required>
+      <option value="1">1st Period</option>
+      <option value="2">2nd Period</option>
+      <option value="3">3rd Period</option>
+      <option value="4">4th Period</option>
+      <option value="5">5th Period</option>
+    </select>
+
+    <label for="time">Select Time:</label>
+    <input type="time" id="time" required>
+
+    <button onclick="generateAttendance()">Generate Attendance Sheet</button>
+    <button onclick="exportToPDF()">Export to PDF</button>
+    <table id="attendanceTable">
+      <!-- Dynamic Attendance Table will be inserted here -->
+    </table>
+
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+    </div>
   </div>
 
   <script>
-// Toggle button selection logic
-const buttons = document.querySelectorAll('.attendance-btn');
-const attendance = {};
+    const bbaStudents = Array.from({ length: 60 }, (_, i) => `BBA Student ${i + 1}`);
+    const bcaStudents = Array.from({ length: 30 }, (_, i) => `BCA Student ${i + 1}`);
+  
+    let attendanceData = []; // To store attendance data for CSV export
+  
+    function generateAttendance() {
+      const loadingSpinner = document.getElementById('loading');
+      loadingSpinner.style.display = 'block'; // Show loading spinner
+  
+      // Simulating an asynchronous operation
+      setTimeout(() => {
+        const course = document.getElementById('course').value;
+        const students = course === 'BBA' ? bbaStudents : bcaStudents;
+  
+        let table = `<thead>
+                        <tr>
+                            <th>Roll No</th>
+                            <th>Name</th>
+                            <th>Attendance Status</th>
+                            <th>Mark Attendance</th>
+                        </tr>
+                     </thead><tbody>`;
+  
+        // Ensure all students are displayed correctly
+        attendanceData = []; // Reset attendance data
+        students.forEach((student, index) => {
+          table += `<tr>
+                      <td>${index + 1}</td>
+                      <td>${student}</td>
+                      <td class="attendance-status">Not Marked</td>
+                      <td>
+                          <button class="btn-mark btn-present" onclick="markAttendance(this, 'present')">Present</button>
+                          <button class="btn-mark btn-absent" onclick="markAttendance(this, 'absent')">Absent</button>
+                          <button class="btn-mark btn-late" onclick="markAttendance(this, 'late')">Late</button>
+                      </td>
+                    </tr>`;
+          attendanceData.push({ rollNo: index + 1, name: student, status: 'Not Marked' });
+        });
+  
+        table += `</tbody>`;
+        document.getElementById('attendanceTable').innerHTML = table;
+        loadingSpinner.style.display = 'none'; // Hide loading spinner
+      }, 1000); // Simulate loading time
+    }
+  
+    function markAttendance(button, status) {
+  const row = button.closest('tr');
+  const statusCell = row.querySelector('.attendance-status');
 
-buttons.forEach(button => {
-  button.addEventListener('click', function() {
-    const student = this.getAttribute('data-student');
-    const status = this.getAttribute('data-status');
-    
-    // Check if the button is already active (clicked)
-    if (this.classList.contains('active')) {
-      // Unclick the button (remove active state)
-      this.classList.remove('active', 'present', 'absent', 'late');
-      // Remove the attendance entry for this student
-      delete attendance[student];
-    } else {
-      // Deactivate other buttons for the same student
-      buttons.forEach(btn => {
-        if (btn.getAttribute('data-student') === student) {
-          btn.classList.remove('active', 'present', 'absent', 'late');
-        }
-      });
+  // Update attendance data
+  const rollNo = row.cells[0].innerText;
+  const name = row.cells[1].innerText;
 
-      // Mark the clicked button as active
-      this.classList.add('active');
-      
-      // Apply the appropriate color based on status
-      if (status === 'Present') {
-        this.classList.add('present');
-      } else if (status === 'Absent') {
-        this.classList.add('absent');
-      } else if (status === 'Late') {
-        this.classList.add('late');
-      }
+  // Reset the previous status in attendanceData
+  attendanceData[rollNo - 1] = { rollNo: rollNo, name: name, status: status };
 
-      // Record attendance for the student
-      attendance[student] = status;
+  // Update the status cell text and color
+  statusCell.innerText = status.charAt(0).toUpperCase() + status.slice(1); // Capitalize the first letter
+  statusCell.style.color = status === 'present' ? 'green' : (status === 'absent' ? 'red' : 'orange');
+
+  // Reset button colors and states
+  const buttons = row.querySelectorAll('.btn-mark');
+  buttons.forEach(btn => {
+    btn.style.cursor = 'pointer'; // Change cursor style
+    btn.style.backgroundColor = '#333'; // Reset to default color
+
+    // Change the color of the button clicked based on the status
+    if (btn.classList.contains(`btn-${status}`)) {
+      btn.style.backgroundColor = status === 'present' ? '#008a05' : (status === 'absent' ? '#8d1500' : '#8a4e00');
     }
   });
-});
+}
 
-</script>
 
+  
+    function exportToPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  const date = document.getElementById('date').value;
+  const course = document.getElementById('course').value;
+  const year = document.getElementById('year').value;
+  const semester = document.getElementById('semester').value;
+  const time = document.getElementById('time').value;
+
+  // Add a title
+  doc.setFontSize(20);
+  doc.text(`Attendance Report`, 14, 20);
+  doc.setFontSize(12);
+  doc.text(`Date: ${date}`, 14, 30);
+  doc.text(`Course: ${course}`, 14, 35);
+  doc.text(`Year: ${year}`, 14, 40);
+  doc.text(`Semester: ${semester}`, 14, 45);
+  doc.text(`Time: ${time}`, 14, 50);
+  doc.text(`\n`, 14, 55); // Add a new line
+
+  // Initialize starting Y position for student data
+  let startY = 65;
+
+  // Add attendance data for all students
+  const students = course === 'BBA' ? bbaStudents : bcaStudents;
+
+  students.forEach((student, index) => {
+    const studentData = attendanceData[index] || { rollNo: index + 1, name: student, status: 'Not Marked' };
+    doc.text(`Roll No: ${studentData.rollNo}, Name: ${studentData.name}, Status: ${studentData.status}`, 14, startY);
+    startY += 10; // Move down for the next line
+
+    // Check if we need to add a new page
+    if (startY > 270) { // Adjust this value based on your layout (maximum height for A4)
+      doc.addPage();
+      startY = 20; // Reset Y position for the new page
+    }
+  });
+
+  // Save the PDF
+  doc.save(`Attendance_Report_${date}.pdf`);
+}
+
+  
+  </script>
+  
 </body>
+
 </html>
